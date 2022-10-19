@@ -1,5 +1,6 @@
 import requests
-import json
+import os
+from dotenv import load_dotenv
 import pymongo
 
 class Player():
@@ -49,11 +50,12 @@ class Ballchasing():
 
 
 if __name__ == "__main__":
+    load_dotenv()
     api = Ballchasing("ZMteLc7brLqXYuexmqeppeuXJPXZLBxKnalz4y3x")
     file = api.get_replay("a813182a-d3a8-4bbb-8f92-89b48a160afd")
     data = file.parse_data()
 
-    client = pymongo.MongoClient("mongodb+srv://Eth:Aidan3546*@ballchasing.bp7zecs.mongodb.net/test")
+    client = pymongo.MongoClient(os.getenv('mongodbpassword'))
 
     database = client.get_database('ballchasing-data')
     # database.create_collection('yoo')
